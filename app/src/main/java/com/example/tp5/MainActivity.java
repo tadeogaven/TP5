@@ -1,12 +1,12 @@
 package com.example.tp5;
 
+import android.app.Activity;
 import android.app.Fragment;
-
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,20 +15,23 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
 
-
-    FragmentActivity adminFragments;
+    FragmentManager adminFragments;
     FragmentTransaction transacFragments;
+
+    String NombrePelicula;
+    EditText Nombre = findViewById(R.id.nombreabuscar);
+
+
+
     List<String> listapeliculas;
 
 
-    public void setAdminFragments(FragmentActivity adminFragments) {
+    public void setAdminFragments(FragmentManager adminFragments) {
         this.adminFragments = adminFragments;
     }
-
-    String NombreProcesar;
 
 
     public List<String> GetList(){
@@ -40,30 +43,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listapeliculas = new ArrayList();
-        ListView miListadeResultados;
+        ListView MiListaDePeliculas;
+        MiListaDePeliculas=findViewById(R.id.MiListaDePeliculas);
         ArrayAdapter miAdaptador;
-        String nombre;
-        EditText NombrePelicula;
-        NombrePelicula=findViewById(R.id.nombreabuscar);
-        Button boton;
-
-        nombre= NombrePelicula.toString();
-
-
-        adminFragments=FragmentActivity();
-        android.app.Fragment NombreCat;
+        adminFragments=getFragmentManager();
+        Fragment FragmentBuscarPeliculas;
+        FragmentBuscarPeliculas = new Fragment();
 
         transacFragments=adminFragments.beginTransaction();
-        transacFragments.replace(R.id.FragmentLista, NombrePelicula);
+        transacFragments.replace(R.id.FragmentLista, FragmentBuscarPeliculas );
         transacFragments.commit();
 
 
     }
 
-
-
-
     }
 
-    }
 
