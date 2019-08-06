@@ -21,7 +21,7 @@
             android:id="@+id/nombreabuscar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Buscar Pelicula"
+            android:hint="Buscar pelicula"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintRight_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,13 +35,13 @@
             app:layout_constraintRight_toLeftOf="parent"
             android:hint="Click Para Buscars"
             android:text="CLICK"
-            android:onClick="BtnBuscarPelicula"/>
+            android:onClick="Buscar"/>
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/FragmentLista"
+        android:id="@+id/FragmentHolder"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linear"

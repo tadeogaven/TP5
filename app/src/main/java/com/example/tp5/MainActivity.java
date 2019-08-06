@@ -14,48 +14,50 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.List;
 
 public class MainActivity extends Activity {
+    EditText ingreso;
+    String titulo;
+    String idpelicula;
+    adaptadorpeliculas adaptadorPeliculas;
+    FragmentManager adminFragment;
+    FragmentTransaction transacFragment;
+    Fragment fragmentPeliculaDetalle;
+    Fragment fragmentListaPelicula;
 
-
-    FragmentManager adminFragments;
-    FragmentTransaction transacFragments;
-
-    String NombrePelicula;
-    EditText Nombre = findViewById(R.id.nombreabuscar);
-
-
-
-    List<String> listapeliculas;
-
-
-    public void setAdminFragments(FragmentManager adminFragments) {
-        this.adminFragments = adminFragments;
-    }
-
-
-    public List<String> GetList(){
-        return  listapeliculas;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listapeliculas = new ArrayList();
-        ListView MiListaDePeliculas;
-        MiListaDePeliculas=findViewById(R.id.MiListaDePeliculas);
-        ArrayAdapter miAdaptador;
-        adminFragments=getFragmentManager();
-        Fragment FragmentBuscarPeliculas;
-        FragmentBuscarPeliculas = new Fragment();
 
-        transacFragments=adminFragments.beginTransaction();
-        transacFragments.replace(R.id.FragmentLista, FragmentBuscarPeliculas );
-        transacFragments.commit();
+        ingreso = findViewById(R.id.nombreabuscar);
+
+
+        adminFragment = getFragmentManager();
+        fragmentListaPelicula = new FragmentLista_Peliculas();
+        fragmentPeliculaDetalle = new FragmentPeliculas_Detalle();
 
 
     }
+    public void Buscar (View vista){
+        titulo = ingreso.getText().toString();
+        transacFragment = adminFragment.beginTransaction();
+        transacFragment.replace(R.id.FragmentHolder, fragmentListaPelicula);
+        transacFragment.commit();
+    }
+
+    public String LeeteEsteTitulo (){ return titulo; }
+
+    public void ProcesarDatosRecibidos (String id){
+        idpelicula = id;
+        transacFragment = adminFragment.beginTransaction();
+        transacFragment.replace(R.id.FragmentHolder, fragmentPeliculaDetalle);
+        transacFragment.commit();
+    }
+
+    public String LeeteEsteId (){ return idpelicula; }
 
     }
 
