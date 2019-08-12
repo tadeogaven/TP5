@@ -53,7 +53,7 @@ public class adaptadorpeliculas extends BaseAdapter {
 
         Peliculas PeliculaActual = getItem(Position);
         String Title = PeliculaActual._titulo;
-        int Year = PeliculaActual._fechalanz;
+        String Year = PeliculaActual._fechalanz;
         String Poster = PeliculaActual._imagen;
 
         TextView Titulo;
@@ -82,7 +82,7 @@ public class adaptadorpeliculas extends BaseAdapter {
                         conexion.disconnect();
                     }
                 } catch(Exception e){
-                    Log.d("capo", "Error " + e.getMessage());
+                    Log.d("error", "Error " + e.getMessage());
                 }
                 return imagen;
             }

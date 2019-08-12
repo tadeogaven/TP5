@@ -4,13 +4,13 @@ import android.media.Image;
 
 public class Peliculas {
     public String _id;
-    public int _fechalanz;
+    public String _fechalanz;
     public String  _titulo;
     public String _director;
     public String _imagen;
     public String _sinopsis;
 
-    public Peliculas(String id, int fechalanz, String titulo, String director, String imagen, String sinopsis)
+    public Peliculas(String id, String fechalanz, String titulo, String director, String imagen, String sinopsis)
     {
         _id = id;
         _fechalanz = fechalanz;
@@ -23,7 +23,7 @@ public class Peliculas {
     {
 
     }
-    public Peliculas(String id, int fechalanz,String imagen, String titulo)
+    public Peliculas(String id, String fechalanz,String imagen, String titulo)
     {
         _id = id;
         _fechalanz = fechalanz;

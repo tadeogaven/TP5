@@ -38,6 +38,7 @@ public class FragmentLista_Peliculas extends Fragment {
 
 
         MiListaDePeliculas = vistaADevolver.findViewById(R.id.MiListaDePeliculas);
+        Log.d("eskere", "" + MiListaDePeliculas);
         MiListaDePeliculas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -65,52 +66,39 @@ public class FragmentLista_Peliculas extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try{
-
+                Log.d("eskere", titulo);
                 URL Ruta = new URL("http://www.omdbapi.com/?apikey=b8ac6455&s="+ titulo);
                 HttpURLConnection miConexion = (HttpURLConnection) Ruta.openConnection();
                 if (miConexion.getResponseCode() == 200) {
-                    InputStream cuerpoRespuesta =    miConexion.getInputStream();
-                    InputStreamReader JsonCrudo = new InputStreamReader(cuerpoRespuesta, "UTF-8");
-                    procesarJSONPeliculas(JsonCrudo);
+                    InputStream stream = miConexion.getInputStream();
+                    InputStreamReader reader = new InputStreamReader(stream, "UTF-8");
+                    JsonParser parser = new JsonParser();
+                    JsonObject json = parser.parse(reader).getAsJsonObject();
+
+                    JsonArray jsonMovies = json.getAsJsonArray("Search");
+                    Log.d("eskere", "" + jsonMovies.size());
+                    for (int i = 0; i < jsonMovies.size(); i++) {
+                        JsonObject jsonMovie = jsonMovies.get(i).getAsJsonObject();
+                        Peliculas peli = new Peliculas();
+                        peli._titulo = jsonMovie.get("Title").getAsString();
+                        peli._fechalanz = jsonMovie.get("Year").getAsString();
+                        peli._imagen = jsonMovie.get("Poster").getAsString();
+                        peli._id = jsonMovie.get("imdbID").getAsString();
+                        listPeliculas.add(peli);
+                    }
                 }
                 miConexion.disconnect();
+                Log.d("Estado", "se desconecto");
 
             } catch (Exception error){
+                Log.d("error", "es" + error.getMessage());
             }
             return null;
         }
         protected void onPostExecute(Void aVoid){
+            Log.d("eskere", ""+listPeliculas.size());
             super.onPostExecute(aVoid);
             MiListaDePeliculas.setAdapter(adaptadorPeliculas);
-        }
-    }
-    public void procesarJSONPeliculas(InputStreamReader JsonCrudo){
-        listPeliculas.clear();
-        try {
-            JsonParser parseador = new JsonParser();
-            JsonObject objJsonCrudo = parseador.parse(JsonCrudo).getAsJsonObject();
-            JsonArray buscar = null;
-            try{
-                buscar = objJsonCrudo.get("Search").getAsJsonArray();
-            }catch (Exception error){
-                Log.d(FragmentLista_Peliculas.class.getSimpleName(), error.getMessage());
-            }
-            if(buscar != null){
-                for(int i = 0; i < buscar.size(); i++){
-                    Peliculas pelicula = new Peliculas();
-                    JsonObject peli = buscar.get(i).getAsJsonObject();
-                    pelicula._titulo=peli.get("Title").getAsString();
-                    pelicula._id=peli.get("imdbID").getAsString();
-                    pelicula._fechalanz=peli.get("Year").getAsInt();
-                    pelicula._imagen=peli.get("Poster").getAsString();
-                    listPeliculas.add(pelicula);
-                }
-            }else{
-                objJsonCrudo.get("Error").getAsString();
-            }
-
-        } catch (Exception error) {
-            Log.d("capoMain", "Error al procesar JSON: (" + error.getMessage() + ")");
         }
     }
 
