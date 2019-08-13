@@ -95,6 +95,9 @@ public class FragmentLista_Peliculas extends Fragment {
             }
             return null;
         }
+
+
+
         protected void onPostExecute(Void aVoid){
             Log.d("eskere", ""+listPeliculas.size());
             super.onPostExecute(aVoid);

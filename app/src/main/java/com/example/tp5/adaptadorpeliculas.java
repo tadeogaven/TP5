@@ -26,7 +26,7 @@ public class adaptadorpeliculas extends BaseAdapter {
 
     public adaptadorpeliculas(ArrayList<Peliculas> Lista, Context Contexto) {
         ListPeliculas = Lista;
-        Contexto = Contexto;
+        this.Contexto = Contexto;
     }
 
     public int getCount() {
@@ -53,7 +53,7 @@ public class adaptadorpeliculas extends BaseAdapter {
 
         Peliculas PeliculaActual = getItem(Position);
         String Title = PeliculaActual._titulo;
-        String Year = PeliculaActual._fechalanz;
+        String Año = PeliculaActual._fechalanz;
         String Poster = PeliculaActual._imagen;
 
         TextView Titulo;
@@ -61,7 +61,7 @@ public class adaptadorpeliculas extends BaseAdapter {
         Titulo.setText(Title);
         TextView FechaLanzamiento;
         FechaLanzamiento = (TextView) VistaADevolver.findViewById(R.id.fecha);
-        FechaLanzamiento.setText(FechaLanzamiento+"");
+        FechaLanzamiento.setText(Año+"");
 
         final ImageView Imagen;
         Imagen = (ImageView) VistaADevolver.findViewById(R.id.imagen);

@@ -17,12 +17,14 @@ public class FragmentPeliculas_Detalle extends Fragment {
     TextView fechalanz;
     TextView sinopsis;
     String idPelicula;
+    Peliculas peliculas;
     MainActivity mainactivity;
+
 
     public View onCreateView (LayoutInflater infladorDeLayout, ViewGroup grupo, Bundle Datos){
 
         View vistaADevolver;
-        vistaADevolver = infladorDeLayout.inflate(R.layout.caracteristicaspeliculas, grupo, false);;
+        vistaADevolver = infladorDeLayout.inflate(R.layout.pelicula_detalle, grupo, false);;
 
         mainactivity = (MainActivity) getActivity();
         idPelicula = mainactivity.LeeteEsteId();
@@ -32,8 +34,9 @@ public class FragmentPeliculas_Detalle extends Fragment {
         director = vistaADevolver.findViewById(R.id.director);
         sinopsis = vistaADevolver.findViewById(R.id.sinopsis);
 
-
-
+        sinopsis.setText(pelicula._sinopsis);
+        titulo.setText(pelicula._titulo);
+        fechalanz.setText(pelicula._fechalanz);
 
         return vistaADevolver;
     }
